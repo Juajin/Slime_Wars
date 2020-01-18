@@ -39,8 +39,7 @@ public class GameLoop : MonoBehaviour
     public void GameOver() {
         pSystem.SetActive(false);
         gameoverUI.SetActive(true);
-        currentGameArea.SetActive(false);
-        nextGameArea.SetActive(false);
+
         Time.timeScale = 0;
     }
 
@@ -48,7 +47,7 @@ public class GameLoop : MonoBehaviour
     {
         if (score % 100 == 0)
         {
-            gameSpeed++;
+            gameSpeed+=2;
         }
         if (startFlag)
         {

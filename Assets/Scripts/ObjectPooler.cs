@@ -8,7 +8,7 @@ public class ObjectPooler : MonoBehaviour
     public class Pool
     {
         public string tag;
-        public GameObject[] preFab;
+        public List<GameObject> preFab;
     }
     public List<Pool> pools;
     public bool isPoolCreated = false;
@@ -23,11 +23,15 @@ public class ObjectPooler : MonoBehaviour
         foreach (Pool pool in pools)
         {
             Queue<GameObject> objectPool = new Queue<GameObject>();
-            for (int i = 0; i < pool.preFab.Length; i++)
+            var coppyList = pool.preFab;
+            int tempNum = 0;
+            while (coppyList.Count!=0)
             {
-                GameObject obj = Instantiate(pool.preFab[i],transform.parent);
+                GameObject obj = Instantiate(pool.preFab.ToArray()[tempNum],transform.parent);
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
+                coppyList.RemoveAt(tempNum);
+                tempNum= Random.Range(0, coppyList.Count);
             }
             poolDictionary.Add(pool.tag, objectPool);
         }
