@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -32,8 +33,8 @@ public class GameLoop : MonoBehaviour
         {
             pSystem = new GameObject();
         }
-        currentGameArea = objectPooler.SpawnFromPool("GameArea", new Vector3(0, 150, 0));
-        nextGameArea = objectPooler.SpawnFromPool("GameArea", new Vector3(0, 1920, 0));
+        currentGameArea = objectPooler.SpawnFromPool("Level", new Vector3(0, 0, 0));
+        nextGameArea = objectPooler.SpawnFromPool("Level", new Vector3(0, 20, 0));
 
     }
     public void GameOver() {
@@ -52,10 +53,11 @@ public class GameLoop : MonoBehaviour
         if (startFlag)
         {
             score += (float)gameSpeed / 20;
-            if (currentGameArea.GetComponent<RectTransform>().localPosition.y < -1920)
+            if (currentGameArea.transform.localPosition.y < -20)
             {
+                currentGameArea.SetActive(false);
                 currentGameArea = nextGameArea;
-                nextGameArea = objectPooler.SpawnFromPool("GameArea", new Vector3(0, 1920, 0));
+                nextGameArea = objectPooler.SpawnFromPool("Level", new Vector3(0, 20, 0));
             }
             currentGameArea.transform.Translate(Vector3.down * gameSpeed / 100);
             nextGameArea.transform.Translate(Vector3.down * gameSpeed / 100);
@@ -63,13 +65,17 @@ public class GameLoop : MonoBehaviour
         }
 
     }
-    private void OnMouseDown()
+    public void TouchtoTouchPad()
     {
+
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        pSystem.GetComponent<RectTransform>().position = new Vector3(mousePosition.x, mousePosition.y, 0);
+        Vector3 tempPosition = mousePosition;
+        tempPosition.z = -1f;
+        Debug.Log(tempPosition-touchCenter.transform.localPosition);
+        pSystem.transform.position =tempPosition;
         pSystem.GetComponent<ParticleSystem>().Play();
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().rb2d.gravityScale=1;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SlimeMovement(mousePosition, touchCenter.transform.position);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().rb2d.gravityScale=2;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SlimeMovement(mousePosition, touchCenter.transform.localPosition);
         startFlag = true;
     }
 }

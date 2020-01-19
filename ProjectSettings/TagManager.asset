@@ -6,8 +6,9 @@ TagManager:
   tags:
   - TouchCenter
   - Ground
-  - Needle
+  - Thorn
   - Touchpad
+  - SelectedCharacter
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - UI
   - 
   - 
-  - Message
-  - 
+  - Background
+  - UI
   - 
   - 
   - 
@@ -51,6 +52,9 @@ TagManager:
   - name: UI
     uniqueID: 3557260495
     locked: 0
-  - name: Message
+  - name: TouchPAD
     uniqueID: 1780353931
+    locked: 0
+  - name: InfoScreen
+    uniqueID: 1973768469
     locked: 0

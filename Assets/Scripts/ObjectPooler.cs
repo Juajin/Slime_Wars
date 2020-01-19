@@ -42,8 +42,8 @@ public class ObjectPooler : MonoBehaviour
         GameObject objectToSpawn=poolDictionary[tag].Dequeue();
 
         objectToSpawn.SetActive(true);
-        objectToSpawn.GetComponent<RectTransform>().localPosition = position;
-        objectToSpawn.GetComponent<RectTransform>().rotation = Quaternion.identity;
+        objectToSpawn.transform.localPosition = position;
+        objectToSpawn.transform.rotation = Quaternion.identity;
         poolDictionary[tag].Enqueue(objectToSpawn);
 
         return objectToSpawn;
