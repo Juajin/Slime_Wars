@@ -19,7 +19,15 @@ public class GameLoop : MonoBehaviour
     private GameObject currentGameArea, nextGameArea;
     public static GameLoop Instance;
     public bool startFlag = false;
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
 
+    }
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+    }
     private void Awake()
     {
         Screen.orientation = ScreenOrientation.Portrait;
@@ -38,10 +46,9 @@ public class GameLoop : MonoBehaviour
 
     }
     public void GameOver() {
+        PauseGame();
         pSystem.SetActive(false);
         gameoverUI.SetActive(true);
-
-        Time.timeScale = 0;
     }
 
     private void FixedUpdate()

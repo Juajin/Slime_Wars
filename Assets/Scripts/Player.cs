@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public void SlimeMovement(Vector3 mousePos, Vector3 center)
     {
         Vector3 distanceVec = mousePos - center;
-        rb2d.velocity = -distanceVec;
+        rb2d.velocity = -distanceVec*1.5f;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
