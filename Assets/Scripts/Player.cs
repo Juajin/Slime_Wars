@@ -6,8 +6,10 @@ public class Player : MonoBehaviour
 {
     public Rigidbody2D rb2d;
     public Character selectedCharacter;
+    public bool isGetLifeBefore;
     private void Start()
     {
+        isGetLifeBefore = false;
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         rb2d.gravityScale = 0;
     }
@@ -20,7 +22,8 @@ public class Player : MonoBehaviour
     {
         if (collision.collider.CompareTag("Thorn"))
         {
-            GameLoop.Instance.GameOver();
+            AdController.Instance.PlayVideoAD();
+            GameManagement.Instance.GameOver();
         }
     }
     public void ChangeCharacter(Character character)

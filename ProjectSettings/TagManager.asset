@@ -9,6 +9,8 @@ TagManager:
   - Thorn
   - Touchpad
   - SelectedCharacter
+  - Jewel
+  - Obstackle
   layers:
   - Default
   - TransparentFX
