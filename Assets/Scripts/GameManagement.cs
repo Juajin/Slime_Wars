@@ -39,7 +39,6 @@ public class GameManagement : MonoBehaviour
         }
         currentGameArea = objectPooler.SpawnFromPool("Level", new Vector3(0, 0, 0));
         nextGameArea = objectPooler.SpawnFromPool("Level", new Vector3(0, 20, 0));
-        SetBestScore();
     }
     private void FixedUpdate()
     {
@@ -62,10 +61,6 @@ public class GameManagement : MonoBehaviour
             scoreText.text = "" + (int)score;
         }
 
-    }
-    private void SetBestScore()
-    {
-        bestScoreText.text = "Best:" + jewelOBJ.bestScore;
     }
     public void PauseGame()
     {
@@ -104,8 +99,8 @@ public class GameManagement : MonoBehaviour
     }
     public void GameOver()
     {
-        jewelOBJ.bestScore = jewelOBJ.bestScore < score ? (int)score : jewelOBJ.bestScore;
-        SetBestScore();
+        PlayGamesController.PostToLeaderboard((long)score);
+        PlayGamesController.ShowLeaderboardUI();
         PauseGame();
         pSystem.SetActive(false);
         gameoverUI.SetActive(true);
